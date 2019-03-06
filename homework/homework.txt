@@ -1,0 +1,16 @@
+01. operatii pe biti
+	Sa se determine numarul format din x cu p biti incepand cu al t-lea numarat de la dreapta la stanga
+	
+
+02. Sudoku - verificare configuratie folosind operatii pe biti
+03. Sudoku - generare solutie pentru o configuratie partiala data (web app)
+04. Operatii cu date calendaristice - diferenta dintre doua date in zile;
+				    - diferenta dintre doua date calendaristice in ani, luni, saptamani, zile
+				    - data + nr zile
+				    - data - nr zile
+				    - in ce zi a saptamanii se gaseste o data calendaristica
+
+05. Rezolvati ecuatia de gradul 2 folosind o aplicatie web
+06. Se dau n puncte in plan prin coordonatele lor. Sa se determine cercul de raza minima care contine in interior toate punctele date.
+
+

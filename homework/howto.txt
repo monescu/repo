@@ -1,3 +1,19 @@
 
-http://permissions-calculator.org/
+1. Fiecare student va clona continutul repository-ului utilizand tool-ul preferat(Tortoise Git, Git Bash, etc.)
+	https://github.com/monescu/repo
 
+
+2. Fiecare student isi va crea propriul branch din master. Format-ul numelui de branch este: students/Nume_Prenume
+
+
+
+	Exemplu pentru Tortoise Git:
+		
+		Clonare: 1. Se creaza un director local pe disc(e.g. checkout)
+			 2. Click dreapta pe folder -> Git Clone... -> URL: https://github.com/monescu/repo.git -> OK
+
+		Creare branch propriu: 1. Click dreapta pe folder-ul repo din checkout -> TortoiseGit -> Create Branch...
+				       2. Name branch: students/Nume_Prenume -> OK
+						(Se recomanda bifarea optiunii Switch to new branch)
+
+3. La finalizarea temei / temelor studentul se va asigura ca toate modificarile sunt prezente pe branch-ul propriu, dupa care va crea un Pull request catre master la care reviewer va fi "monescu"

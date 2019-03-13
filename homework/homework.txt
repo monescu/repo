@@ -14,3 +14,6 @@
 06. Se dau n puncte in plan prin coordonatele lor. Sa se determine cercul de raza minima care contine in interior toate punctele date.
 
 
+
+
+http://permissions-calculator.org/

@@ -11,7 +11,7 @@
 				    - in ce zi a saptamanii se gaseste o data calendaristica
 
 05. Rezolvati ecuatia de gradul 2 folosind o aplicatie web
-06. Se dau n puncte in plan prin coordonatele lor. Sa se determine cercul de raza minima care contine in interior toate punctele date.
+06. Se dau n puncte in plan prin coordonatele lor. Sa se determine cercul de raza minima si cu centrul in unul din punctele date care contine in interior toate punctele.
 
 
 

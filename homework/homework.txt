@@ -13,6 +13,8 @@
 05. Rezolvati ecuatia de gradul 2 folosind o aplicatie web
 06. Se dau n puncte in plan prin coordonatele lor. Sa se determine cercul de raza minima si cu centrul in unul din punctele date care contine in interior toate punctele.
 07. Parsati informatia din fisierul https://mateinfo.unitbv.ro/images/studenti/orar/sem2_2018-2019/Orar_sem_II_2018-2019_V4.xlsx. Informatiile vor fi structurate astfel incat sa se poata efectua cautari dupa ziua din saptamana, disciplina, sala, an de studiu, specializare, nume profesor, tip de activitate(C/S/L), semigrupa(A/B)
+08. Creati un sistem de booking pentru salile de curs/seminar/laborator disponibile intr-o cladire.
+
 
 
 

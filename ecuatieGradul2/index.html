@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quadratic equation solver</title>
+</head>
+
+<body>
+<p align="middle"> Quadratic equation solver </br>ax<sup>2</sup> + bx + c.</p>
+<br /><br /><br /><br />
+<form align="middle"  method="post">
+    <input type = "text" name="a" id="a" size="4" required /> x<sup>2</sup> + <input type="text" name="b" id="b" size="4" required /> x + <input type="text" name="c" id="c" size="4" required /> = 0 </br></br></br>
+    <input type="submit"> <br/><br/>
+    {{with .Result}}<div id="result">{{.}}</div>{{end}}
+</form>
+</br></br></br>
+<div align="middle" id="print">Introduceti valorile pentru a, b si c apoi apasati Submit.</div>
+
+</body>
+</html>

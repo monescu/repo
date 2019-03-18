@@ -3,15 +3,16 @@ package main
 import (
 	"fmt"
 	"math"
+	"puncteInCerc/model"
 )
 
-func calculateDistances(points []Point2D) map[Point2D][]float64 {
-	var distances = map[Point2D][]float64{}
+func calculateDistances(points []model.Point2D) map[model.Point2D][]float64 {
+	var distances = map[model.Point2D][]float64{}
 
 	for _, point := range points {
 		for _, otherPoint := range points {
-			if !point.equals(otherPoint) {
-				distances[point] = append(distances[point], point.distance(otherPoint))
+			if !point.Equals(otherPoint) {
+				distances[point] = append(distances[point], point.Distance(otherPoint))
 			}
 		}
 	}
@@ -41,17 +42,17 @@ func calculateMin(maxims []float64) (float64, int) {
 }
 
 func main() {
-	var points = []Point2D{
-		{x: 1, y: 1},
-		{x: 1, y: 2},
-		{x: 1, y: 3},
-		{x: 2, y: 1},
-		{x: 2, y: 2},
-		{x: 2, y: 3},
-		{x: 3, y: 1},
-		{x: 3, y: 2},
-		{x: 3, y: 3},
-		{x: 0, y: 0},
+	var points = []model.Point2D{
+		{X: 1, Y: 1},
+		{X: 1, Y: 2},
+		{X: 1, Y: 3},
+		{X: 2, Y: 1},
+		{X: 2, Y: 2},
+		{X: 2, Y: 3},
+		{X: 3, Y: 1},
+		{X: 3, Y: 2},
+		{X: 3, Y: 3},
+		{X: 0, Y: 0},
 	}
 
 	fmt.Println(points)

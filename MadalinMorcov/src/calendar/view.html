@@ -1,0 +1,9 @@
+<h1>{{.Title}}</h1>
+
+<form action="/view/" method="POST">
+    <input type="date" name="date" size="4">
+    <div><input type="submit" value="Calculate"></div>
+</form>
+
+
+<div>{{printf "%s" .Body}}</div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>HTML Sudoku Board</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/circle.js"></script>
+</head>
+
+<body>
+    <div class="row text-center" style="margin-top: 100px;">
+        <div class="col-xs-6">
+            <input id="point_value" type="text" style="margin-top: 4px;">
+            <!-- width: 120px-->
+        </div>
+        <div class=" col-xs-2">
+            <input id=" submit_point_value" class="btn btn-info " type="submit " value="Submit " onclick="generateTable();">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <form method="POST" action="/circle">
+                <div id="circle_table"></div>
+                <input id="find_circle" class="btn btn-info " type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+
+</body>

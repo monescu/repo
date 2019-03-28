@@ -2,25 +2,24 @@ package main
 
 import (
 	"fmt"
+	"html/template"
+	"log"
 	"net/http"
-
-	"github.com/tealeg/xlsx"
+	"timetable"
 )
+
+var courses []timetable.Course
 
 func main() {
 
-	unmerged, _ := xlsx.FileToSliceUnmerged("../Orar_sem_II_2018-2019_V4.xlsx")
+	http.Handle("/", http.FileServer(http.Dir("./static")))
 
-	fmt.Println(unmerged)
+	http.HandleFunc("/timetable", timetableHandler)
 
-	// http.Handle("/", http.FileServer(http.Dir("./static")))
-
-	// http.HandleFunc("/timetable", timetableHandler)
-
-	// fmt.Printf("Starting server for testing HTTP POST...\n")
-	// if err := http.ListenAndServe(":8990", nil); err != nil {
-	// 	log.Fatal(err)
-	// }
+	fmt.Printf("Starting server...\n")
+	if err := http.ListenAndServe(":8990", nil); err != nil {
+		log.Fatal(err)
+	}
 }
 
 func timetableHandler(w http.ResponseWriter, r *http.Request) {
@@ -31,13 +30,41 @@ func timetableHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	case "GET":
-		http.ServeFile(w, r, "static/timetable.html")
+
+		courses = timetable.GetCourses()
+		searchTemplate := timetable.GetSearchTemplate(courses)
+		timetableTemplate := template.Must(template.ParseFiles("static/timetableForm.html"))
+
+		timetableTemplate.Execute(w, searchTemplate)
+
+		//http.ServeFile(w, r, "static/timetable.html")
 	case "POST":
 		// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
 		if err := r.ParseForm(); err != nil {
 			fmt.Fprintf(w, "ParseForm() err: %v", err)
 			return
 		}
+
+		teacher := r.FormValue("teacher")
+		day := r.FormValue("day")
+		discipline := r.FormValue("discipline")
+		year := r.FormValue("year")
+		specialisation := r.FormValue("specialisation")
+		courseType := r.FormValue("courseType")
+		group := r.FormValue("group")
+		semiGroup := r.FormValue("semiGroup")
+		hours := r.FormValue("hours")
+
+		courses = timetable.GetCourses()
+
+		searchTemplate := timetable.GetSearchTemplate(courses)
+		searchTemplate.IsPost = true
+		searchTemplate.MatchedCourses = timetable.Search(courses, teacher, day, discipline, year, specialisation, courseType, group, semiGroup, hours)
+
+		timetableTemplate := template.Must(template.ParseFiles("static/timetableForm.html"))
+
+		timetableTemplate.Execute(w, searchTemplate)
+
 	default:
 		fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
 	}

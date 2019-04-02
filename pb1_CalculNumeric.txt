@@ -1,0 +1,53 @@
+import java.util.Scanner;
+
+public class Pb1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		
+		double []x;
+		double []y;
+		double [][]a;
+		double []b;
+		double eps;
+		int nrMax;
+		int n;
+		int nrIt=0,ok=0;
+		double norm;
+		int sumAX=0;
+
+		do{
+			int i,j;
+			
+			for(int k=1;k<=n;k++)
+			{
+				for(i=0,j=0; i<n;i++)
+					if(j!=i)
+						sumAX= a[i][j]*x[j];
+						
+				y[i]=1/a[i][i]*(b[i]-sumAX);
+			}
+			
+			double max = Integer.MIN_VALUE;
+			for(i=0;i<n;i++)
+				if(Math.abs(x[i]-y[i])>max);
+					max=Math.abs(x[i]-y[i]);
+			 norm = max;
+			
+				
+		}while(norm > eps && nrIt < nrMax);
+		
+		System.out.println(y);
+		
+		if(norm<eps)
+			ok=1;
+		
+		if(ok==1)
+			System.out.println("CONVERGE");
+		else
+			System.out.println("NU CONVERGE");
+
+	}
+
+}

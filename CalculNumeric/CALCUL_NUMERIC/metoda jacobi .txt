@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+	public class Jacobi {
+	static Scanner sc=new Scanner(System.in);	
+	public static int SUMA(int a[],int x[],int n,int j,int i)
+	{
+		int suma=0;
+		for(j=1;j<=n;j++)
+		{
+			if(j!=i)
+				suma=suma+a[j]*x[j];
+			
+		}
+		return suma;
+	}
+	public static int max(int a,int b)
+	{
+		if(a>b)
+			return a;
+		return b;
+		
+	}
+	public static int MAX(int x[],int y[],int n,int i)
+	{
+		if(i==n)
+			return x[i]-y[i];
+		else
+			return max((x[i]-y[i]),MAX(x,y,n,i+1));
+	}
+	public static void main(String[] args) {
+		
+		System.out.print("n=");
+		int n = sc.nextInt();
+		int nrmax = n;
+		int norma,j=1,i=0,nr_it=0,ok=0,eps=1/(10*10*10);
+		int a[] = new int [50];
+		int y[] = new int [50];
+		int b[] = new int[50];
+		int x[] = new int [50];
+		for(int l=1;l<=n;l++)
+			a[l] = sc.nextInt();
+		for(int l=1;l<=n;l++)
+			x[l] = sc.nextInt();
+		for(int l=1;l<=n;l++)
+			b[l] = sc.nextInt(); 
+		do {
+			if(i<=n)
+				i++;
+			y[i] = (b[i]-SUMA(a,x,n,j,i))/a[i];
+			norma = MAX(x,y,n,i);
+			nr_it++;
+			x[i]=y[i];
+		}while(norma>=eps&&nr_it<nrmax);
+		
+		for(int l=1;l<=n;l++)
+			System.out.print(y[l]+" ");
+		System.out.println();
+		if(norma<eps)
+			ok=1;
+		if(ok==1)
+			System.out.print("Norma e mai mica decat epsilon");
+		else
+			System.out.print("S-a depasit numarul maxim");
+		
+		
+		
+		
+	}
+
+}

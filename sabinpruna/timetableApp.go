@@ -1,9 +1,9 @@
 package main
 
 import (
+	"concurrency"
 	"fmt"
 	"html/template"
-	"koch"
 	"log"
 	"net/http"
 	"timetable"
@@ -13,7 +13,13 @@ var courses []timetable.Course
 
 func main() {
 
-	koch.MakePng()
+	//6.78
+	concurrency.SequentialWordCount()
+
+	//5.25
+	concurrency.ParallelWordCount()
+
+	//koch.MakePng()
 
 	http.Handle("/", http.FileServer(http.Dir("./static")))
 

@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"koch"
 	"log"
 	"net/http"
 	"timetable"
@@ -11,6 +12,8 @@ import (
 var courses []timetable.Course
 
 func main() {
+
+	koch.MakePng()
 
 	http.Handle("/", http.FileServer(http.Dir("./static")))
 

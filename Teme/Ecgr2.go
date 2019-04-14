@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"html/template"
 	"math"
 	"net/http"
@@ -56,24 +57,13 @@ type templateParam struct {
 }
 
 func main() {
-	http.HandleFunc("/", handle)
-	http.ListenAndServe(":8081", nil)
-}
+	tmpl := template.Must(template.ParseFiles("forms.html"))
 
-func handle(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("index.html"))
-
-	if r.URL.Path != "/" {
-		http.Redirect(w, r, "/", http.StatusFound)
-		return
-	}
-
-	param := templateParam{}
-
-	if r.Method == "GET" {
-		tmpl.Execute(w, param)
-		return
-	}
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodPost {
+			tmpl.Execute(w, nil)
+			return
+		}
 
 	a := r.FormValue("a")
 	b := r.FormValue("b")
@@ -85,7 +75,8 @@ func handle(w http.ResponseWriter, r *http.Request) {
 
 	if err == nil {
 		rezultat := rezolvare(x, y,z)
-		param.Rezultat = rezultat
-		tmpl.Execute(w, param)
+		fmt.Println(rezultat)
+		Rezultat = rezultat
+		tmpl.Execute(w, nil)
 	}
 }

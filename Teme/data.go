@@ -1,74 +1,255 @@
 package main
 
 import "fmt"
-import "time"
 
-func diferenta(a, b time.Time) (an, luna, zi, h, mm, ss int) {
-	if a.locatie() != b.locatie() {
-		b = b.In(a.locatie())
-	}
-	if a.After(b) {
-		a, b = b, a
-	}
-	an1, L1, zi1 := a.Date()
-	an2, L2, zi2 := b.Date()
-
-	h1, mm1, ss1 := a.Clock()
-	h2, mm2, ss2 := b.Clock()
-
-	an = int(an2 - an1)
-	luna = int(L2 - L1)
-	zi = int(zi2 - zi1)
-	h = int(h2 - h1)
-	mm = int(mm2 - mm1)
-	ss = int(ss2 - ss1)
-
-	if ss < 0 {
-		ss += 60
-		mm--
-	}
-	if mm < 0 {
-		mm += 60
-		h--
-	}
-	if h < 0 {
-		h += 24
-		zi--
-	}
-	if zi < 0 {
-		t := time.Date(an1, L1, 32, 0, 0, 0, 0, time.UTC)
-		zi += 32 - t.zi()
-		mm--
-	}
-	if mm < 0 {
-		mm += 12
-		an--
-	}
-
-	return
+type Data struct{
+	zi, luna, an int
 }
+
+
+var zile_luni = [13]int{0,31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+func citireData()(Data){
+var dataCitita Data
+	var zi,luna,an int
+
+	for  {
+		fmt.Print("Anul: ")
+		fmt.Scanf("%d",&an)
+		if (an<1 ){
+			fmt.Println("Anul trebuie sa fie mai mare decat 0! ")
+		}else{
+			break
+		}
+	}
+
+	for  {
+		fmt.Print("Luna: ")
+		fmt.Scanf("%d",&luna)
+		if (luna<1 || luna>12){
+			fmt.Println("Luna are valori intre 1 si 12! ")
+		}else{
+			break
+		}
+	}
+
+	for  {
+		fmt.Print("Ziua: ")
+		fmt.Scanf("%d", &zi)
+		if luna==2{
+			if anbisect(an){
+				if (zi<1 || zi>29){
+					fmt.Println("Ziua are valori intre 1 si 29! ")
+				}else{
+					break
+				}
+			}else{
+				if (zi<1 || zi>28){
+					fmt.Println("Ziua are valori intre 1 si 28! ")
+				}else{
+					break
+				}
+			}
+
+		}else if (zi<1 || zi>31){
+			fmt.Println("Ziua are valori intre 1 si 31! ")
+		}else{
+			break
+		}
+	}
+
+
+	dataCitita.zi=zi
+	dataCitita.luna=luna
+	dataCitita.an=an
+
+	return dataCitita
+}
+
+func anbisect(an int) bool{
+
+	if an % 100 == 0 && an % 400 == 0{
+		return true
+	}
+	if an % 100 != 0 && an % 4 == 0{
+		return true
+	}
+	return false
+}
+
+func plus_zi(d Data) Data{
+	nrZileLuni := [13]int{0,31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+
+	if d.zi<nrZileLuni[d.luna]{
+		d.zi++
+	}else{
+		if d.zi==nrZileLuni[d.luna] {
+			if d.luna == 2 && anbisect(d.an)  {
+				d.zi++
+			}else{
+				if d.luna==12 {
+					d.zi=1
+					d.luna=1
+					d.an++
+
+				}else{
+					d.zi=1
+					d.luna++
+				}
+			}
+
+		}else{
+			if d.luna == 2 && anbisect(d.an)  {
+				d.zi=1
+				d.luna++
+			}
+		}
+
+	}
+
+	return d
+}
+func minusOZi(d Data) Data {
+	nrZileLuni := [13]int{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
+
+	if d.zi > 1 {
+		d.zi--
+	} else {
+		//daca este 1 matie atunci va fi 28 feb sau 29 feb
+		if d.luna == 3 {
+			if anbisect(d.an) {
+				d.luna--
+				d.zi = nrZileLuni[d.luna] + 1
+			} else {
+				d.luna--
+				d.zi = nrZileLuni[d.luna]
+			}
+		}
+		// daca e 1 ian va fi 31 dec si un an mai putin
+		if d.luna == 1 {
+			d.luna = 12
+			d.zi = nrZileLuni[d.luna]
+			d.an--
+		}else{
+			//cand nu e ian si nici feb
+			d.luna--
+			d.zi = nrZileLuni[d.luna]
+		}
+
+	}
+
+	return d
+}
+func minus1zi(d Data, zile int) Data{
+	for i:=0;i<zile;i++{
+		d=minus1zi(d, 2)
+	}
+
+	return d
+}
+func comparDate(d1, d2 Data) int{
+	if d1.an<d2.an{
+		return -1
+	}
+	if d1.an>d2.an{
+		return 1
+	}
+	if d1.luna<d2.luna{
+		return -1
+	}
+	if d1.luna>d2.luna{
+		return 1
+	}
+	if d1.zi<d2.zi{
+		return -1
+	}else{
+		return 1
+	}
+	return 0
+}
+func numarZile(d1,d2 Data) int{
+	var totalZile int
+	if comparDate(d1,d2)== -1{
+		for (comparDate(d1,d2)== -1){
+			d1=plus_zi(d1)
+			totalZile++
+		}
+	}else if comparDate(d1,d2)== 1{
+		for (comparDate(d2,d1)== -1){
+			d2=plus_zi(d2)
+			totalZile--
+		}
+
+	}else
+	{
+		totalZile=0
+	}
+	return totalZile
+}
+
+func ziuasaptamana(d Data) string{
+	saptamana:=[7] string {"Luni","Marti","Miercuri","Joi","Vineri","Sambata","Duminica"}
+	dataEtalon:= Data{10,3,2019}
+	var nrzile int
+	if comparDate(dataEtalon,d)==-1{
+		nrzile=numarZile(dataEtalon,d)
+		return saptamana[nrzile%7]
+	}else if comparDate(dataEtalon,d)==1{
+		nrzile=numarZile(d,dataEtalon)
+		return saptamana[(7-(nrzile%7))%7]
+	}else{
+		return saptamana[0]
+	}
+
+}
+
+func anLuniSaptamaniZile(zileTotal int) (int,int,int,int){
+	var an,luni,saptamani,zile int
+	an=zileTotal/365
+	zileTotal-=an*365
+	if an>4{
+		zileTotal-=an/4
+
+	}
+	if zileTotal>0 {
+
+		luni = int( float64(zileTotal) /30.5)
+		zileTotal-=int(float64(luni)*30.5)
+
+		if zileTotal>0 {
+			saptamani = zileTotal  / 7
+			zileTotal-=saptamani*7
+			zile = zileTotal
+		}
+	}
+	return an,luni,saptamani,zile
+}
+
 
 func main() {
 
-	acum := time.Now()
-	fmt.Println("Acum suntem in data: ", acum)
 
-	alegeData := time.Date(2019, 8, 16, 15, 48, 20, time.UTC)
-	fmt.Println("Data aleasa: ", alegeData)
+	var data1,data2,data3 Data
 
-	diferenta := acum.Sub(alegeData)
-	zile := int16 (diferenta.Hours()/24)
-	fmt.Println("Diferenta intre doua date[ in zile]: ", zile)
+	fmt.Println("Prima data calendaristica:\n ")
+	data1 = citireData()
+	fmt.Printf(" Data de %v este  %s \n",data1,ziuasaptamana(data1))
 
-	an, luna, zi, h, mm, ss := diferenta(alegeData, acum)
-	fmt.Printf("Diferenta %d an, %d luna, %d zi, %d h, %d mm and %d ss.", an, luna, zi, h, mm, ss)
-	fmt.Println(" ")
+	fmt.Print("A doua data calendaristica: \n")
+	data2 = citireData()
+	fmt.Printf("Data de %v este %s \n",data2,ziuasaptamana(data2))
 
-	fmt.Println("Ziua saptamanii pentru data alesa: " ,alegeData.ziSapt())
+	nrZile:=numarZile(data1,data2)
+	fmt.Printf("\nIntre datele %v - %v aven %d zile \n",data1,data2,nrZile)
 
-	ziadaug := 5
-	ziscazut := 3
-	fmt.Println("Data plus numar de zile: ", Data.AdaugData(0, 0, ziadaug))
-	fmt.Println("Data minus numar de zile: ", alegeData.AdaugData(0, 0, (-ziscazut)))
+	ani, luni, saptamani, zile := anLuniSaptamaniZile(nrZile)
+	fmt.Printf(" \n Numarul de zile = %d insemna %d ani,%d luni %d saptamani, %d zile \n",nrZile,ani,luni,saptamani,zile)
 
+
+	data3=plus_zi(data2)
+	fmt.Printf("Data %v + 20 zile = %v",data2,data3)
+	fmt.Printf(" ziua din saptamana= %s \n",ziuasaptamana(data3))
+
+	data3=minus1zi(data2,20)
+	fmt.Printf("Data %v - 20 zile = %v",data2,data3)
+	fmt.Printf(" ziua din saptamana= %s \n",ziuasaptamana(data3))
 }

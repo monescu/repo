@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Circle</title>
+
+    <style>
+        input[type="text"]{
+            width: 100px;
+        }
+        .content {
+            max-width: 300px;
+            margin: auto;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body class="content">
+<h3>POINTS:</h3>
+<p>Enter the number of points: </p>
+
+<input type="text" id="numberPoints" name="numberPoints"/><br/>
+</br>
+<input type="button" value="Add Points" onclick="addFields()"/>
+
+<br/>
+<form action="/" method="POST">
+    <div id="container"/>
+    </br>
+    <p>Enter the coordinates: </p>
+    <input type="submit" value="SUBMIT"/>
+</form>
+
+</body>
+</html>
+
+<script type="text/javascript">
+    function addFields(){
+        var number = document.getElementById("numberPoints").value;
+        var container = document.getElementById("container");
+        container.appendChild(document.createElement("br"));
+        for (i=0;i<number;i++){
+            container.appendChild(document.createTextNode("Point " + (i+1)+ ": "));
+            var x = document.createElement("input");
+            var y = document.createElement("input");
+            x.type = "text";
+            x.name = "x-" + i;
+            x.id = x.name;
+            x.placeholder = x.name;
+            container.appendChild(x);
+            y.type = "text";
+            y.name = "y-" + i;
+            y.id = y.name;
+            y.placeholder = y.name;
+            container.appendChild(y);
+            container.appendChild(document.createElement("br"));
+        }
+    }
+</script>

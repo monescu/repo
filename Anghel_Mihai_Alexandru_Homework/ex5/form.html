@@ -1,0 +1,14 @@
+{{if .Success}}
+    <h1>Thanks for your message!</h1>
+{{else}}
+    <h1>Contact</h1>
+    <form method="POST">
+        <label>Primul Coeficient:</label><br />
+        <input type="text" name="a"><br />
+        <label>Al doilea coeficient:</label><br />
+        <input type="text" name="b"><br />
+        <label>Al treilea coeficient:</label><br />
+        <textarea name="c"></textarea><br />
+        <input type="submit">
+    </form>
+{{end}}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{.PageTitle}}</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Lemnaru Rebecca - anul 3 ID">
+</head>
+<body>
+<h1>Ecuatia de gradul 2</h1>
+<h2>f(x) = a*x^2 + b*x + c ,unde a!=0</h2>
+<p>delta = b^2-4*a*c</p>
+<p>x1 = (-b+SQRT(delta))/(2*a)</p>
+<p>x2 = (-b-SQRT(delta))/(2*a)</p>
+
+<p><b>Coeficientii ecuatiei:</b></p>
+<form action="/results" method="POST">
+    <label>a</label> <input type="text" name="no_a" value={{.A}}></br></br>
+    <label>b</label> <input type="text" name="no_b" value={{.B}}></br></br>
+    <label>c</label> <input type="text" name="no_c" value={{.C}}></br></br>
+    <input type="submit">
+    <button onclick="location.href='http://localhost:8080'" type="button">Reset</button>
+</form>
+
+<p><b>{{.Delta}} <u>{{.Message}}</u></b></p>
+<p><b>{{.X1}}</b></p>
+<p><b>{{.X2}}</b></p>
+</br>
+<p>Exemple:</p>
+<p>f(x)=3*x^2+6*x+0</p>
+<p>f(x)=4*x^2+4*x+1</p>
+<p>f(x)=3*x^2+2*x+1</p>
+</body>
+</html>

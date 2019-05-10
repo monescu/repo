@@ -1,9 +1,8 @@
 package main
-
 import "fmt"
 
 
-func spirala(n int) []int {
+func spiral(n int) []int {
 	stanga, sus, dreapta, jos := 0, 0, n-1, n-1
 	dim := n * n
 	s := make([]int, dim)
@@ -28,7 +27,7 @@ func spirala(n int) []int {
 			i++
 		}
 		jos--
-
+		// work up left side
 		for r := jos; r >= sus; r-- {
 			s[r*n+stanga] = i
 			i++
@@ -44,7 +43,7 @@ func spirala(n int) []int {
 func main() {
 	num := 5
 	len := 2
-	for i, draw := range spirala(num) {
+	for i, draw := range spiral(num) {
 		fmt.Printf("%*d ", len, draw)
 		if i%num == num-1 {
 			fmt.Println("")

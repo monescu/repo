@@ -66,6 +66,11 @@ var dataCitita Data
 }
 
 func anbisect(an int) bool{
+	// verific daca anul este bisect
+	// dacă (an nu este divizibil cu 4) atunci (an obișnuit)
+	// altfel dacă (an nu este divizibil cu 100) atunci (an bisect)
+	// altfel dacă (an nu este divizibil cu 400) atunci (an obișnuit)
+	// altfel (an bisect)
 
 	if an % 100 == 0 && an % 400 == 0{
 		return true
@@ -75,8 +80,8 @@ func anbisect(an int) bool{
 	}
 	return false
 }
-
-func plus_zi(d Data) Data{
+//functia plus o zi
+func plus_1zi(d Data) Data{
 	nrZileLuni := [13]int{0,31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
 
 	if d.zi<nrZileLuni[d.luna]{
@@ -108,13 +113,14 @@ func plus_zi(d Data) Data{
 
 	return d
 }
+// functia minus o zi
 func minusOZi(d Data) Data {
 	nrZileLuni := [13]int{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
 
 	if d.zi > 1 {
 		d.zi--
 	} else {
-		//daca este 1 matie atunci va fi 28 feb sau 29 feb
+		//daca este 1 martie atunci va fi 28 feb sau 29 feb
 		if d.luna == 3 {
 			if anbisect(d.an) {
 				d.luna--
@@ -141,11 +147,12 @@ func minusOZi(d Data) Data {
 }
 func minus1zi(d Data, zile int) Data{
 	for i:=0;i<zile;i++{
-		d=minus1zi(d, 2)
+		d=minus1zi(d, 1)
 	}
 
 	return d
 }
+//functia pentru a compara 2 date
 func comparDate(d1, d2 Data) int{
 	if d1.an<d2.an{
 		return -1
@@ -166,16 +173,17 @@ func comparDate(d1, d2 Data) int{
 	}
 	return 0
 }
+//functia pentru a numara zilele
 func numarZile(d1,d2 Data) int{
 	var totalZile int
 	if comparDate(d1,d2)== -1{
 		for (comparDate(d1,d2)== -1){
-			d1=plus_zi(d1)
+			d1=plus_1zi(d1)
 			totalZile++
 		}
 	}else if comparDate(d1,d2)== 1{
 		for (comparDate(d2,d1)== -1){
-			d2=plus_zi(d2)
+			d2=plus_1zi(d2)
 			totalZile--
 		}
 
@@ -185,16 +193,16 @@ func numarZile(d1,d2 Data) int{
 	}
 	return totalZile
 }
-
+//functia pentru a stabili ce zi a saptamanii este
 func ziuasaptamana(d Data) string{
-	saptamana:=[7] string {"Luni","Marti","Miercuri","Joi","Vineri","Sambata","Duminica"}
-	dataEtalon:= Data{10,3,2019}
+	saptamana:=[7] string {"Luni","Marti","Miercuri","Joi","Vineri","Sambata", "Duminica"}
+	dataStart:= Data{3,1,2011} //data de start pentru  a compara 3.1.2011 este luni
 	var nrzile int
-	if comparDate(dataEtalon,d)==-1{
-		nrzile=numarZile(dataEtalon,d)
+	if comparDate(dataStart,d)==-1{
+		nrzile=numarZile(dataStart,d)
 		return saptamana[nrzile%7]
-	}else if comparDate(dataEtalon,d)==1{
-		nrzile=numarZile(d,dataEtalon)
+	}else if comparDate(dataStart,d)==1{
+		nrzile=numarZile(d,dataStart)
 		return saptamana[(7-(nrzile%7))%7]
 	}else{
 		return saptamana[0]
@@ -223,18 +231,14 @@ func anLuniSaptamaniZile(zileTotal int) (int,int,int,int){
 	}
 	return an,luni,saptamani,zile
 }
-
-
 func main() {
-
-
 	var data1,data2,data3 Data
-
-	fmt.Println("Prima data calendaristica:\n ")
+	fmt.Println(" Student Sraier Alina-Gabriela, anul III ID, aplicatie cu date calendaristice\n ")
+	fmt.Println(" Introdu prima data calendaristica:\n ")
 	data1 = citireData()
 	fmt.Printf(" Data de %v este  %s \n",data1,ziuasaptamana(data1))
 
-	fmt.Print("A doua data calendaristica: \n")
+	fmt.Print("Introdu a doua data calendaristica: \n")
 	data2 = citireData()
 	fmt.Printf("Data de %v este %s \n",data2,ziuasaptamana(data2))
 
@@ -245,11 +249,11 @@ func main() {
 	fmt.Printf(" \n Numarul de zile = %d insemna %d ani,%d luni %d saptamani, %d zile \n",nrZile,ani,luni,saptamani,zile)
 
 
-	data3=plus_zi(data2)
-	fmt.Printf("Data %v + 20 zile = %v",data2,data3)
+	data3=plus_1zi(data2)
+	fmt.Printf("Data %v + 1 zile = %v",data2,data3)
 	fmt.Printf(" ziua din saptamana= %s \n",ziuasaptamana(data3))
 
-	data3=minus1zi(data2,20)
-	fmt.Printf("Data %v - 20 zile = %v",data2,data3)
+	data3=minus1zi(data2,1)
+	fmt.Printf("Data %v - 1 zile = %v",data2,data3)
 	fmt.Printf(" ziua din saptamana= %s \n",ziuasaptamana(data3))
 }

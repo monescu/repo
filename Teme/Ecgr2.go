@@ -1,63 +1,34 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
-	"math"
 	"net/http"
 	"strconv"
+	"math"
 )
-func rezolvare(a, b, c float64) string {
-	var Delta, x1, x2 float64
-	Delta = b*b - 4*a*c
-	if a == 0 && b == 0 {
-		return "Coeficientul lui x este 0" //cazul in care coeficientul este 0=>ec gr1
-	} else {
-		if a == 0 {
-			x1 = -c / b
-			return "Nu este de ecuatie de gradul 2 si avem solutia pentru ecuatie de gradul 1: " + strconv.FormatFloat(x1, 'f', 6, 64)
-		} else {
-			if b == 0 && (-c/a) >= 0 {
-				x1 = math.Sqrt(-c / a)
-				return "Ecuatia de gradul 2 are solutia: " + strconv.FormatFloat(x1, 'f', 6, 64)
-			} else {
-				//cazul in care am solutii complexe
-				if a != 0 && b != 0 {
-					Delta = b*b - 4*a*c
-					if Delta < 0 {//Cazul pentru Delta >0
-						var real = -b / (2 * a)
-						var imaginar = math.Sqrt(math.Abs(Delta)) / (2 * a)
-						return "Ecuatia de gradul 2 are solutii complexe  x1= " + strconv.FormatFloat(real, 'f', 6, 64) + " + " + strconv.FormatFloat(imaginar, 'g', 3, 64) + "i " + "si x2= " + strconv.FormatFloat(real, 'f', 6, 64) + " - " + strconv.FormatFloat(imaginar, 'g', 3, 64) + "i"
-					} else {
-						if Delta > 0 { //Cazul pentru Delta >0
-							x1 = (-b + math.Sqrt(Delta)) / (2 * a)
-							x2 = (-b - math.Sqrt(Delta)) / (2 * a)
-							return "Ecuatia are solutia: x1= " + strconv.FormatFloat(x1, 'f', 6, 64) + " si x2= " + strconv.FormatFloat(x2, 'f', 6, 64)
 
-						} else { //Cazul pentru Delta =0
-							if Delta == 0 {
-								x1 = -b / (2 * a)
-								return "Ecuatia de gradul 2 are solutia: " + strconv.FormatFloat(x1, 'f', 6, 64)
+type Polinom struct {
+	A   string
+	B   string
+	C   string
 
-							} else {
-								return "Ecuatia de gradul 2 nu are solutii!"
-							}
-						}
-					}
-				}
-			}
-
-		}
-	}
-	return ""
 }
-
-type templateParam struct {
-	Rezultat string
+type Rezultat struct{
+	A   string
+	B   string
+	C   string
+	Success  bool
+	IsReal bool
+	IsComplex bool
+	IsEcGr1 bool
+	IsAltfel bool
+	Sol1 string
+	Sol2 string
+	TipRezultat string
 }
 
 func main() {
-	tmpl := template.Must(template.ParseFiles("forms.html"))
+	tmpl := template.Must(template.ParseFiles("Ecuatie.html"))
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
@@ -65,18 +36,84 @@ func main() {
 			return
 		}
 
-	a := r.FormValue("a")
-	b := r.FormValue("b")
-	c := r.FormValue("c")
+		dateCitite := Polinom{
+			A:   r.FormValue("a"),
+			B: 	 r.FormValue("b"),
+			C:   r.FormValue("c"),
+		}
+		var rezEc Rezultat
+		println(dateCitite.A,dateCitite.B,dateCitite.C)
+		rezEc=ecGrad2(dateCitite)
+		// do something with details
+		//_ = details
 
-	x, err := strconv.ParseFloat(a, 64)
-	y, err := strconv.ParseFloat(b, 64)
-	z, err := strconv.ParseFloat(c, 64)
+		//tmpl.Execute(w, struct{ Success bool  }{true})
+		tmpl.Execute(w, rezEc)
+	})
 
-	if err == nil {
-		rezultat := rezolvare(x, y,z)
-		fmt.Println(rezultat)
-		Rezultat = rezultat
-		tmpl.Execute(w, nil)
+	http.ListenAndServe(":8181", nil)
+}
+//http://localhost:8181
+
+func ecGrad2(datePol Polinom ) Rezultat{
+	//initializare rezultat cu datele polinomului
+	var rezEc Rezultat
+	rezEc.A=datePol.A
+	rezEc.B=datePol.B
+	rezEc.C=datePol.C
+	rezEc.Success=true
+
+	var a,b,c, delta,sol1,sol2,re,im float64
+	//converirea la float64 a coeficientiilor polinomului
+	a, _ =strconv.ParseFloat(datePol.A,64)
+	b, _ =strconv.ParseFloat(datePol.B,64)
+	c, _ =strconv.ParseFloat(datePol.C,64)
+
+	// rezolvarea ecuatiei
+
+	if a!=0{
+		delta=b*b-4*a*c
+		if delta>0{
+			sol1=(-b+math.Sqrt(delta))/(2*a)
+			sol2=(-b-math.Sqrt(delta))/(2*a)
+			//rezultate
+			rezEc.IsReal=true
+			rezEc.TipRezultat="Solutile ecuatiei sunt reale"
+			rezEc.Sol1=strconv.FormatFloat(sol1, 'f', 6, 64)
+			rezEc.Sol2=strconv.FormatFloat(sol2, 'f', 6, 64)
+		}else if delta==0{
+			sol1=(-b)/(2*a)
+			sol2=sol1
+			//rezultate
+			rezEc.IsReal=true
+			rezEc.TipRezultat="Solutile ecuatiei sunt egale si reale"
+			rezEc.Sol1=strconv.FormatFloat(sol1, 'f', 6, 64)
+			rezEc.Sol2=strconv.FormatFloat(sol2, 'f', 6, 64)
+		}else{
+			re=-b/(2*a)
+			im=math.Sqrt(-delta)/(2*a)
+			//rezultate
+			rezEc.IsComplex=true
+			rezEc.TipRezultat="Ecuatia  are solutii complexe"
+			rezEc.Sol1=strconv.FormatFloat(re, 'f', 6, 64)
+			rezEc.Sol2=strconv.FormatFloat(im, 'f', 6, 64)
+		}
+	}else if b!=0{
+		sol1=-c/b
+		//rezultate
+		rezEc.IsEcGr1=true
+		rezEc.TipRezultat="Ecuatia are o singura  solutie"
+		rezEc.Sol1=strconv.FormatFloat(sol1, 'f', 6, 64)
+	}else if(c!=0){
+		//nu sunt solutii
+		rezEc.IsAltfel=true
+		rezEc.TipRezultat="Ecuatia nu are solutii"
+	}else{
+		//o solutie infinita
+		rezEc.IsAltfel=true
+		rezEc.TipRezultat="Ecuatia are o infinitate de soluti "
 	}
+
+
+	return rezEc
 }

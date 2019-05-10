@@ -1,0 +1,27 @@
+{{if .Success}}
+    <h1>Pentru ecuatia:</h1>
+    <h2>{{.A}}X2+{{.B}}X+{{.C}}=0</h2>
+    <h1>{{.TipRezultat}}</h1>
+    {{if .IsReal}}
+         <h3>Sol1 = {{.Sol1}} Sol2 = {{.Sol2}}</h3>
+    {{end}}
+    {{if .IsComlex}}
+        <h3>Sol = {{.Sol1}} + {{.Sol2}}i</h3>
+    {{end}}
+    {{if .IsEcGr1}}
+        <h3>Sol = {{.Sol1}} </h3>
+    {{end}}
+
+{{else}}
+    <h1>Ecuatia de gradul II</h1>
+    <form method="POST">
+        <h2>a*x2+b*x+c=0</h2>
+        <label>a = </label><br />
+        <input type="number" name="a"><br />
+        <label>b = :</label><br />
+        <input type="number" name="b"><br />
+        <label>c = :</label><br />
+        <input type="number" name="c"><br />
+        <input type="submit">
+    </form>
+{{end}}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ecuatie grad 2</title>
+</head>
+<body>
+<!-- forms.html -->
+{{if .Success}}
+    <h1>Rezultatul este</h1>
+    <label>x1: {{.FirstX}}</label>
+    </br>
+    <label>x2: {{.SecondX}}</label>
+{{else}}
+    <h1>Calculare ecuatie grad 2:</h1>
+    <form method="POST">
+        <input type="number" name="firstCoef" style="width: 50px" value="0">
+        <label>x^2 + </label>
+        <input type="number" name="secondCoef" style="width: 50px" value="0">
+        <label>x = </label>
+        <input type="number" name="thirdCoef" style="width: 50px" value="0"></br>
+        <input type="submit">
+    </form>
+{{end}}
+</body>
+</html>

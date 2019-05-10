@@ -11,31 +11,29 @@ import (
 
 var white = color.RGBA{255, 255, 255, 255}
 var black = color.RGBA{0, 0, 0, 255}
+var angle60 = math.Pi / 3;
 
 func main() {
 	img := image.NewRGBA(image.Rect(0, 0, 600, 400))
 	draw.Draw(img, img.Bounds(), &image.Uniform{black}, image.ZP, draw.Src)
 
-
-	angle := math.Pi / 3 // 60 grade
 	x1:=float64(150)
 	y1:=float64(200)
 	x2:=float64(350)
 	y2:=float64(200)
-	x3 := x1 + (x2-x1) * math.Cos(angle) + (y2-y1) * math.Sin(angle)
-	y3 := y1 - (x2-x1) * math.Sin(angle) + (y2-y1) * math.Cos(angle)
+	x3 := x1 + (x2-x1) * math.Cos(angle60) + (y2-y1) * math.Sin(angle60)
+	y3 := y1 - (x2-x1) * math.Sin(angle60) + (y2-y1) * math.Cos(angle60)
 
 	koch(x2, y2, x1, y1, 0, *img)
 	koch(x3, y3, x2, y2, 0, *img)
 	koch(x1, y1, x3, y3, 0, *img)
-
-
-	f, err := os.Create("draw.png")
+	
+	file, err := os.Create("theImage.png")
 	if err != nil {
 		panic(err)
 	}
-	defer f.Close()
-	png.Encode(f, img)
+	defer file.Close()
+	png.Encode(file, img)
 }
 
 func abs(x int) int {
@@ -76,14 +74,13 @@ func drawline(x0, y0, x1, y1 int, img image.RGBA) {
 }
 
 func koch(x1, y1, x2, y2 float64, iter int, img image.RGBA) {
-	angle := math.Pi / 3
 
 	x3 := (x1*2 + x2) / 3
 	y3 := (y1*2 + y2) / 3
 	x4 := (x1 + x2*2) / 3
 	y4 := (y1 + y2*2) / 3
-	x5 := x3 + (x4-x3) * math.Cos(angle) + (y4-y3) * math.Sin(angle)
-	y5 := y3 - (x4-x3) * math.Sin(angle) + (y4-y3) * math.Cos(angle)
+	x5 := x3 + (x4-x3) * math.Cos(angle60) + (y4-y3) * math.Sin(angle60)
+	y5 := y3 - (x4-x3) * math.Sin(angle60) + (y4-y3) * math.Cos(angle60)
 
 	if iter > 0 {
 		iter--

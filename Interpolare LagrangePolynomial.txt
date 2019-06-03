@@ -1,0 +1,57 @@
+package lagrangepolynomial;
+ 
+import java.util.Scanner;
+ 
+public class LagrangePolynomial
+{
+       public static void main(String[] args)
+       {
+           Scanner myScanner = new Scanner(System.in);
+            
+           int n; 
+           int count, count2; 
+            
+           float [] arrayx = new float[200]; 
+           float [] arrayy = new float[200]; 
+           float x = 0;
+           float y = 0; 
+           float numerator; 
+           float denominator;  
+    
+        System.out.print("Numarul elementelor n: ");
+        n = myScanner.nextInt(); 
+     
+        System.out.println("Valorile in xi.");
+            
+            for(count = 0; count<n; count++) 
+            {
+                System.out.print("Valoarea lui x" + count + ": ");
+                arrayx[count] = myScanner.nextFloat();
+            }
+
+            System.out.println("Valorile in yi.");
+            for(count = 0; count<n; count++) 
+            {
+                System.out.print("Valoarea lui y" + count + ": ");
+                arrayy[count] = myScanner.nextFloat();
+            }
+            System.out.print("Valoare arbitrara a lui x pentru valoarea y: ");
+            x = myScanner.nextFloat();  
+             
+            for(count = 0; count<n; count++)
+            {
+                numerator = 1; denominator = 1;
+                 
+                for(count2 = 0; count2<n; count2++)
+                {
+                    if (count2 != count)
+                    {
+                      numerator = numerator * (x - arrayx[count2]);
+                      denominator = denominator * (arrayx[count] - arrayx[count2]);
+                    } 
+                }
+                y = y + (numerator/denominator) * arrayy[count];
+            }
+            System.out.println("Cand x = " + x + "," + " y = " +  y);
+    }
+}

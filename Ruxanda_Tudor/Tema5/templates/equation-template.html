@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/stylesheets/welcome-template.css">
+
+    <!-- The welcome struct (shown in the main.go code) is received within the HTML and we just need to use the . operator and retrieve the information we want -->
+    <title>Welcome</title>
+</head>
+<body>
+<form action="/solveEquation" method="get">
+    <input type="number" name="x_squared" />X^2
+    <input type="number" name="x_first"/>X
+    <input type="number" name="free_term"/>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html> 

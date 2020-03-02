@@ -19,7 +19,7 @@ Cartea lui Caleb Doxsey
                - Man Stefania, 372
                - Mares Stefan, 372
                - Albert Mihai, 371
-               - Liviu Pîrtea, 372
+               - Liviu PÃ®rtea, 372
 
 4. 23.03.2020
    Capitolul 8 - Radu Lucian, 373
@@ -31,7 +31,7 @@ Cartea lui Caleb Doxsey
 5. 30.03.2020
    Capitolul 9 - Iftode Sergiu, 372
 	       - Manea Eduard, 372
-	       - Gâdea Horatiu, 372
+	       - GÃ¢dea Horatiu, 372
 	       - Ifrim Silviu, 372
 	       - Gagiu George Daniel, 372
 	       - Ciurea Emanuel, 371
@@ -42,6 +42,7 @@ Cartea lui Caleb Doxsey
 		- Irina Puscasu, 373
 		- Mircan Vlad, 373
 		- Adrian Tuchel, 373
+		- SÄƒlÄƒgean Bogdan, 373
 
 
 7. 13.04.2020
@@ -54,7 +55,7 @@ Cartea lui Caleb Doxsey
 
 8. 27.04.2020
    Capitolul 12 - Rauta Iulia, 373
-		- Sîsîiac Georgian, 373
+		- SÃ®sÃ®iac Georgian, 373
 		- Vlad Carla, 373
 		- Stoica Ioana, 373
 		- Marin Alexandru, 372
@@ -66,9 +67,11 @@ Cartea lui Caleb Doxsey
 		- Scafariu Bogdan Andrei, 373
 		- Ilie Cristian, 372
 		- Gligor Bogdan, 372
+		- Åžtefan Constantin Teodor, 373
 
    Servicii REST - Mathe Andreea, 373
 		 - Nica Diana, 373
 		 - Robu Estera, 373
-		 - Scânteie Dana, 373
+		 - ScÃ¢nteie Dana, 373
 		 - Tudorancea Bianca, 373
+		 - Mincu IonuÅ£-Alexandru, 373

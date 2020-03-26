@@ -19,7 +19,7 @@ Cartea lui Caleb Doxsey
    Capitolul 7 - Padurariu Monalisa, 273
 	       - Militaru Melisa, 273
 	       - Albu Noemi, 271
-	       - CÓmpianu Ionut, 271
+	       - C√Æmpianu Ionut, 271
 	       - Chirita Alin, 271
 
 4. 26.03.2020
@@ -37,7 +37,7 @@ Cartea lui Caleb Doxsey
    Capitolul 10 - Cotelnic Lidia, 271
 		- Cuzuioc Stefana, 271
 		- Badiu Ioana, 271
-		- Ap‚nzarasoaie Alin, 271
+		- Ap√¢nzarasoaie Alin, 271
 		- Czoguly Tunde, 272
 
 
@@ -46,6 +46,7 @@ Cartea lui Caleb Doxsey
 		- Conea Emanuel, 271
 		- Calin Bogdan, 271
 		- Filip Cezar Iulian, 272
+		- Dordea Dragos Dan, 272
 
 8. 30.04.2020
    Capitolul 12 - Stancioi Dragos, 273
@@ -55,6 +56,6 @@ Cartea lui Caleb Doxsey
    Capitolul 13 + Servicii REST - Serban Andreea Nicoleta, 273
 				- Stanciu Vlad, 273
 				- Tazlauanu Sandra, 273
-				- RÓtan Mihai Lucian, 273
+				- R√Ætan Mihai Lucian, 273
 				- Tutoveanu Andrei, 273
 
